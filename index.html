@@ -1,587 +1,454 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arctic Tiers</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arctic Tiers</title>
 
-<style>
-:root {
-  --bg: #0b1220;
-  --panel: #111d30;
-  --panel2: #17263b;
-  --blue: #38bdf8;
-  --white: #f1f5f9;
-  --muted: #94a3b8;
-  --border: #263750;
-}
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111d30;
+      --panel2: #17263b;
+      --blue: #38bdf8;
+      --white: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #263750;
+    }
 
-* {
-  box-sizing: border-box;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--white);
-  font-family: Arial, sans-serif;
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--white);
+      font-family: Arial, sans-serif;
+    }
 
-#snow {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
+    #snow {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-header,
-main,
-footer {
-  position: relative;
-  z-index: 1;
-}
+    header,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
 
-header {
-  height: 68px;
-  background: #101b2d;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 max(calc((100% - 1100px) / 2), 20px);
-  gap: 20px;
-}
+    header {
+      height: 68px;
+      background: #101b2d;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 max(calc((100% - 1100px) / 2), 20px);
+      gap: 20px;
+    }
 
-.logo {
-  font-size: 21px;
-  font-weight: 900;
-  letter-spacing: 1px;
-}
+    .logo {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
 
-.logo span {
-  color: var(--blue);
-}
+    .logo span {
+      color: var(--blue);
+    }
 
-nav {
-  display: flex;
-  gap: 20px;
-}
+    nav {
+      display: flex;
+      gap: 20px;
+    }
 
-nav a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-}
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
 
-nav a:hover {
-  color: var(--blue);
-}
+    nav a:hover {
+      color: var(--blue);
+    }
 
-main {
-  max-width: 1100px;
-  margin: 45px auto;
-  padding: 0 20px;
-}
+    main {
+      max-width: 1100px;
+      margin: 45px auto;
+      padding: 0 20px;
+    }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
+    h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
 
-.subtitle {
-  color: var(--muted);
-  margin-bottom: 30px;
-}
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
 
-.tabs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
 
-.tab {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 10px 15px;
-  border-radius: 7px;
-  cursor: pointer;
-}
+    .tab {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px 15px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
 
-.tab.active,
-.tab:hover {
-  background: #15314a;
-  border-color: var(--blue);
-  color: var(--blue);
-}
+    .tab.active,
+    .tab:hover {
+      background: #15314a;
+      border-color: var(--blue);
+      color: var(--blue);
+    }
 
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
-}
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
 
-input {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  color: white;
-  padding: 12px 14px;
-  border-radius: 7px;
-  outline: none;
-  width: 260px;
-}
+    input {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: white;
+      padding: 12px 14px;
+      border-radius: 7px;
+      outline: none;
+      width: 260px;
+    }
 
-input:focus {
-  border-color: var(--blue);
-}
+    input:focus {
+      border-color: var(--blue);
+    }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
 
-th {
-  text-align: left;
-  padding: 15px;
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
-  background: #142237;
-}
+    th {
+      text-align: left;
+      padding: 15px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      background: #142237;
+    }
 
-td {
-  padding: 13px 15px;
-  border-top: 1px solid var(--border);
-}
+    td {
+      padding: 13px 15px;
+      border-top: 1px solid var(--border);
+    }
 
-.player {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: bold;
-}
+    .player {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: bold;
+    }
 
-.head {
-  width: 34px;
-  height: 34px;
-  image-rendering: pixelated;
-}
+    .head {
+      width: 34px;
+      height: 34px;
+      image-rendering: pixelated;
+    }
 
-tr.player-row {
-  cursor: pointer;
-}
+    tr.player-row {
+      cursor: pointer;
+    }
 
-tr.player-row:hover {
-  background: var(--panel2);
-}
+    tr.player-row:hover {
+      background: var(--panel2);
+    }
 
-.rank {
-  color: var(--muted);
-  width: 55px;
-}
+    .rank {
+      color: var(--muted);
+      width: 55px;
+    }
 
-.tier {
-  color: #7dd3fc;
-  background: #15334b;
-  border: 1px solid #245477;
-  padding: 5px 9px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: bold;
-}
+    .tier {
+      color: #7dd3fc;
+      background: #15334b;
+      border: 1px solid #245477;
+      padding: 5px 9px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
 
-.points {
-  color: var(--muted);
-}
+    .points {
+      color: var(--muted);
+    }
 
-footer {
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  text-align: center;
-  padding: 25px;
-  margin-top: 60px;
-  font-size: 13px;
-}
+    footer {
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      padding: 25px;
+      margin-top: 60px;
+      font-size: 13px;
+    }
 
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000b;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 2;
-}
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000b;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2;
+    }
 
-.modal.open {
-  display: flex;
-}
+    .modal.open {
+      display: flex;
+    }
 
-.profile {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 25px;
-  width: 100%;
-  max-width: 520px;
-}
+    .profile {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 25px;
+      width: 100%;
+      max-width: 520px;
+    }
 
-.profile-top {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
 
-.profile-top img {
-  width: 75px;
-  height: 75px;
-  image-rendering: pixelated;
-}
+    .profile-top img {
+      width: 75px;
+      height: 75px;
+      image-rendering: pixelated;
+    }
 
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 9px;
-  margin-top: 22px;
-}
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-top: 22px;
+    }
 
-.profile-item {
-  background: var(--panel2);
-  padding: 12px;
-  border-radius: 7px;
-}
+    .profile-item {
+      background: var(--panel2);
+      padding: 12px;
+      border-radius: 7px;
+    }
 
-.profile-item small {
-  display: block;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
+    .profile-item small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
 
-.close {
-  float: right;
-  background: none;
-  border: 0;
-  color: white;
-  font-size: 22px;
-  cursor: pointer;
-}
+    .close {
+      float: right;
+      background: none;
+      border: 0;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
 
-@media (max-width: 600px) {
-  header {
-    padding: 0 15px;
-  }
+    @media (max-width: 600px) {
+      header {
+        padding: 0 15px;
+      }
 
-  nav {
-    gap: 10px;
-  }
+      nav {
+        gap: 10px;
+      }
 
-  nav a {
-    font-size: 12px;
-  }
+      nav a {
+        font-size: 12px;
+      }
 
-  main {
-    margin-top: 28px;
-  }
+      main {
+        margin-top: 28px;
+      }
 
-  h1 {
-    font-size: 25px;
-  }
+      h1 {
+        font-size: 25px;
+      }
 
-  th,
-  td {
-    padding: 11px 8px;
-    font-size: 12px;
-  }
+      th,
+      td {
+        padding: 11px 8px;
+        font-size: 12px;
+      }
 
-  .profile-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+      .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-  input {
-    width: 100%;
-  }
-}
-</style>
+      input {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<canvas id="snow" aria-hidden="true"></canvas>
+  <canvas id="snow" aria-hidden="true"></canvas>
 
-<header>
-  <div class="logo">❄ ARCTIC <span>TIERS</span></div>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#rankings">Rankings</a>
-    <a href="#players">Players</a>
-  </nav>
-</header>
+  <header>
+    <div class="logo">❄ ARCTIC <span>TIERS</span></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#rankings">Rankings</a>
+      <a href="#players">Players</a>
+    </nav>
+  </header>
 
-<main id="rankings">
-  <h1>Player Rankings</h1>
-  <div class="subtitle">The Minecraft PvP Tierlist</div>
+  <main id="rankings">
+    <h1>Player Rankings</h1>
+    <div class="subtitle">The Minecraft PvP Tierlist</div>
 
-  <div class="tabs" id="tabs"></div>
+    <div class="tabs" id="tabs"></div>
 
-  <div class="toolbar">
-    <input id="search" type="search" placeholder="Search player..." aria-label="Search players">
-    <span style="color:#94a3b8;font-size:13px" id="count"></span>
-  </div>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Player</th>
-        <th>Tier</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody id="ranking"></tbody>
-  </table>
-</main>
-
-<div class="modal" id="modal">
-  <div class="profile">
-    <button class="close" onclick="closeProfile()" aria-label="Close profile">×</button>
-    <div id="profileContent"></div>
-  </div>
-</div>
-
-<footer>
-  ❄ ARCTIC TIERS · Minecraft PvP Rankings
-</footer>
-
-<script>
-const modes = [
-  "Overall", "Sword", "Axe", "Crystal", "UHC",
-  "Pot", "SMP", "Mace", "Netherite", "Spear"
-];
-
-const players = [
-  {
-    name: "Fjalraven",
-    points: 0,
-    tiers: {
-      Sword: "HT4",
-      Axe: "HT5",
-      Crystal: "HT5",
-      UHC: "LT4",
-      Pot: "LT4",
-      SMP: "HT5",
-      Mace: "LT4",
-      Netherite: "HT5",
-      Spear: "HT4"
-    }
-  }
-];
-
-let currentMode = "Overall";
-
-function getTier(player, mode) {
-  if (mode === "Overall") return "—";
-  return player.tiers[mode] || "—";
-}
-
-// Tier order from lowest to highest: LT5, HT5, LT4, HT4, LT3, HT3, LT2, HT2, LT1, HT1.
-function tierSortValue(tier) {
-  const order = {
-    LT5: 0,
-    HT5: 1,
-    LT4: 2,
-    HT4: 3,
-    LT3: 4,
-    HT3: 5,
-    LT2: 6,
-    HT2: 7,
-    LT1: 8,
-    HT1: 9
-  };
-
-  return order[tier] ?? 999;
-}
-
-function renderTabs() {
-  document.getElementById("tabs").innerHTML = modes.map(mode => `
-    <button
-      class="tab ${mode === currentMode ? "active" : ""}"
-      onclick="selectMode('${mode}')">
-      ${mode}
-    </button>
-  `).join("");
-}
-
-function selectMode(mode) {
-  currentMode = mode;
-  renderTabs();
-  renderPlayers();
-}
-
-function renderPlayers() {
-  const query = document.getElementById("search").value.trim().toLowerCase();
-
-  const list = players.filter(player =>
-    player.name.toLowerCase().includes(query)
-  );
-
-  if (currentMode !== "Overall") {
-    list.sort((a, b) =>
-      tierSortValue(a.tiers[currentMode]) -
-        tierSortValue(b.tiers[currentMode]) ||
-      b.points - a.points
-    );
-  } else {
-    list.sort((a, b) => b.points - a.points);
-  }
-
-  document.getElementById("count").textContent = `${list.length} players`;
-
-  document.getElementById("ranking").innerHTML = list.map((player, index) => `
-    <tr class="player-row" onclick="openProfile('${player.name}')">
-      <td class="rank">${index + 1}</td>
-      <td>
-        <div class="player">
-          <img
-            class="head"
-            src="https://mc-heads.net/avatar/${encodeURIComponent(player.name)}/64"
-            alt="${player.name} skin head">
-          ${player.name}
-        </div>
-      </td>
-      <td><span class="tier">${getTier(player, currentMode)}</span></td>
-      <td class="points">${player.points}</td>
-    </tr>
-  `).join("");
-}
-
-function openProfile(name) {
-  const player = players.find(item => item.name === name);
-  if (!player) return;
-
-  document.getElementById("profileContent").innerHTML = `
-    <div class="profile-top">
-      <img
-        src="https://mc-heads.net/avatar/${encodeURIComponent(player.name)}/128"
-        alt="${player.name} skin head">
-      <div>
-        <h2>${player.name}</h2>
-        <p style="color:#94a3b8">${player.points} Points</p>
-      </div>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search player..." aria-label="Search players">
+      <span style="color:#94a3b8;font-size:13px" id="count"></span>
     </div>
 
-    <h3 style="margin-top:25px">Player Tiers</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Tier</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody id="ranking"></tbody>
+    </table>
+  </main>
 
-    <div class="profile-grid">
-      ${modes.slice(1).map(mode => `
-        <div class="profile-item">
-          <small>${mode}</small>
-          <b style="color:#7dd3fc">${player.tiers[mode] || "—"}</b>
-        </div>
-      `).join("")}
+  <div class="modal" id="modal">
+    <div class="profile">
+      <button class="close" onclick="closeProfile()" aria-label="Close profile">×</button>
+      <div id="profileContent"></div>
     </div>
-  `;
+  </div>
 
-  document.getElementById("modal").classList.add("open");
-}
+  <footer>
+    ❄ ARCTIC TIERS · Minecraft PvP Rankings
+  </footer>
 
-function closeProfile() {
-  document.getElementById("modal").classList.remove("open");
-}
+  <script>
+    const modes = [
+      "Overall", "Sword", "Axe", "Crystal", "UHC",
+      "Pot", "SMP", "Mace", "Netherite", "Spear"
+    ];
 
-document.getElementById("search").addEventListener("input", renderPlayers);
-
-document.getElementById("modal").addEventListener("click", event => {
-  if (event.target.id === "modal") {
-    closeProfile();
-  }
-});
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") {
-    closeProfile();
-  }
-});
-
-renderTabs();
-renderPlayers();
-</script>
-
-<script>
-(() => {
-  const canvas = document.getElementById("snow");
-  const ctx = canvas.getContext("2d");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  if (!ctx || reduceMotion.matches) return;
-
-  let width = 0;
-  let height = 0;
-  let flakes = [];
-
-  function resizeCanvas() {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-    canvas.width = width * pixelRatio;
-    canvas.height = height * pixelRatio;
-    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
-    const flakeCount = Math.min(160, Math.floor(width / 8));
-
-    flakes = Array.from({ length: flakeCount }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 2.2 + 0.6,
-      speed: Math.random() * 1.1 + 0.4,
-      drift: Math.random() * 0.8 - 0.4,
-      opacity: Math.random() * 0.55 + 0.2
-    }));
-  }
-
-  function animateSnow() {
-    ctx.clearRect(0, 0, width, height);
-
-    for (const flake of flakes) {
-      ctx.beginPath();
-      ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(220, 240, 255, ${flake.opacity})`;
-      ctx.fill();
-
-      flake.y += flake.speed;
-      flake.x += flake.drift;
-
-      if (flake.y > height + flake.radius) {
-        flake.y = -flake.radius;
-        flake.x = Math.random() * width;
+    const players = [
+      {
+        name: "Fjalraven",
+        tiers: {
+          Sword: "HT4",
+          Axe: "HT5",
+          Crystal: "HT5",
+          UHC: "LT4",
+          Pot: "LT4",
+          SMP: "HT5",
+          Mace: "LT4",
+          Netherite: "HT5",
+          Spear: "HT4"
+        }
       }
+    ];
 
-      if (flake.x < -flake.radius) {
-        flake.x = width + flake.radius;
-      }
+    let currentMode = "Overall";
 
-      if (flake.x > width + flake.radius) {
-        flake.x = -flake.radius;
-      }
+    // Rangfolge von niedrig nach hoch.
+    // LT5 = 1 Punkt, HT5 = 2 Punkte, ... HT1 = 10 Punkte.
+    function tierSortValue(tier) {
+      const order = {
+        LT5: 0,
+        HT5: 1,
+        LT4: 2,
+        HT4: 3,
+        LT3: 4,
+        HT3: 5,
+        LT2: 6,
+        HT2: 7,
+        LT1: 8,
+        HT1: 9
+      };
+
+      return order[tier] ?? -1;
     }
 
-    requestAnimationFrame(animateSnow);
-  }
+    // Berechnet die Gesamtpunkte aus allen eingetragenen Rängen.
+    function pointsFor(player) {
+      return modes.slice(1).reduce((total, mode) => {
+        const tier = player.tiers[mode];
 
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
-  animateSnow();
-})();
-</script>
-</body>
-</html>
+        if (!tier) {
+          return total;
+        }
+
+        return total + tierSortValue(tier) + 1;
+      }, 0);
+    }
+
+    function getTier(player, mode) {
+      if (mode === "Overall") return "—";
+      return player.tiers[mode] || "—";
+    }
+
+    function renderTabs() {
+      document.getElementById("tabs").innerHTML = modes.map(mode => `
+        <button
+          class="tab ${mode === currentMode ? "active" : ""}"
+          onclick="selectMode('${mode}')">
+          ${mode}
+        </button>
+      `).join("");
+    }
+
+    function selectMode(mode) {
+      currentMode = mode;
+      renderTabs();
+      renderPlayers();
+    }
+
+    function renderPlayers() {
+      const query = document.getElementById("search").value.trim().toLowerCase();
+
+      const list = players.filter(player =>
+        player.name.toLowerCase().includes(query)
+      );
+
+      if (currentMode !== "Overall") {
+        list.sort((a, b) => {
+          const aTier = tierSortValue(a.tiers[currentMode]);
+          const bTier = tierSortValue(b.tiers[currentMode]);
+
+          // Höherer Rang zuerst`*
