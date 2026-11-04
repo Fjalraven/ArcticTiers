@@ -16,9 +16,7 @@
   --border: #263750;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -36,9 +34,7 @@ body {
   z-index: 0;
 }
 
-header,
-main,
-footer {
+header, main, footer {
   position: relative;
   z-index: 1;
 }
@@ -54,30 +50,11 @@ header {
   gap: 20px;
 }
 
-.logo {
-  font-size: 21px;
-  font-weight: 900;
-  letter-spacing: 1px;
-}
-
-.logo span {
-  color: var(--blue);
-}
-
-nav {
-  display: flex;
-  gap: 20px;
-}
-
-nav a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-nav a:hover {
-  color: var(--blue);
-}
+.logo { font-size: 21px; font-weight: 900; letter-spacing: 1px; }
+.logo span { color: var(--blue); }
+nav { display: flex; gap: 20px; }
+nav a { color: var(--muted); text-decoration: none; font-size: 14px; }
+nav a:hover { color: var(--blue); }
 
 main {
   max-width: 1100px;
@@ -85,23 +62,9 @@ main {
   padding: 0 20px;
 }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  color: var(--muted);
-  margin-bottom: 30px;
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
+h1 { font-size: 32px; margin-bottom: 8px; }
+.subtitle { color: var(--muted); margin-bottom: 30px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
 .tab {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -110,14 +73,11 @@ h1 {
   border-radius: 7px;
   cursor: pointer;
 }
-
-.tab.active,
-.tab:hover {
+.tab.active, .tab:hover {
   background: #15314a;
   border-color: var(--blue);
   color: var(--blue);
 }
-
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -125,7 +85,6 @@ h1 {
   margin-bottom: 15px;
   flex-wrap: wrap;
 }
-
 input {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -135,11 +94,7 @@ input {
   outline: none;
   width: 260px;
 }
-
-input:focus {
-  border-color: var(--blue);
-}
-
+input:focus { border-color: var(--blue); }
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -148,7 +103,6 @@ input:focus {
   border-radius: 10px;
   overflow: hidden;
 }
-
 th {
   text-align: left;
   padding: 15px;
@@ -157,38 +111,12 @@ th {
   text-transform: uppercase;
   background: #142237;
 }
-
-td {
-  padding: 13px 15px;
-  border-top: 1px solid var(--border);
-}
-
-.player {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: bold;
-}
-
-.head {
-  width: 34px;
-  height: 34px;
-  image-rendering: pixelated;
-}
-
-tr.player-row {
-  cursor: pointer;
-}
-
-tr.player-row:hover {
-  background: var(--panel2);
-}
-
-.rank {
-  color: var(--muted);
-  width: 55px;
-}
-
+td { padding: 13px 15px; border-top: 1px solid var(--border); }
+.player { display: flex; align-items: center; gap: 12px; font-weight: bold; }
+.head { width: 34px; height: 34px; image-rendering: pixelated; }
+tr.player-row { cursor: pointer; }
+tr.player-row:hover { background: var(--panel2); }
+.rank { color: var(--muted); width: 55px; }
 .tier {
   color: #7dd3fc;
   background: #15334b;
@@ -198,11 +126,7 @@ tr.player-row:hover {
   font-size: 12px;
   font-weight: bold;
 }
-
-.points {
-  color: var(--muted);
-}
-
+.points { color: var(--muted); }
 footer {
   border-top: 1px solid var(--border);
   color: var(--muted);
@@ -211,7 +135,6 @@ footer {
   margin-top: 60px;
   font-size: 13px;
 }
-
 .modal {
   display: none;
   position: fixed;
@@ -222,11 +145,7 @@ footer {
   padding: 20px;
   z-index: 2;
 }
-
-.modal.open {
-  display: flex;
-}
-
+.modal.open { display: flex; }
 .profile {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -235,38 +154,16 @@ footer {
   width: 100%;
   max-width: 520px;
 }
-
-.profile-top {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.profile-top img {
-  width: 75px;
-  height: 75px;
-  image-rendering: pixelated;
-}
-
+.profile-top { display: flex; align-items: center; gap: 18px; }
+.profile-top img { width: 75px; height: 75px; image-rendering: pixelated; }
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 9px;
   margin-top: 22px;
 }
-
-.profile-item {
-  background: var(--panel2);
-  padding: 12px;
-  border-radius: 7px;
-}
-
-.profile-item small {
-  display: block;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
+.profile-item { background: var(--panel2); padding: 12px; border-radius: 7px; }
+.profile-item small { display: block; color: var(--muted); margin-bottom: 8px; }
 .close {
   float: right;
   background: none;
@@ -277,39 +174,14 @@ footer {
 }
 
 @media (max-width: 600px) {
-  header {
-    padding: 0 15px;
-  }
-
-  nav {
-    gap: 10px;
-  }
-
-  nav a {
-    font-size: 12px;
-  }
-
-  main {
-    margin-top: 28px;
-  }
-
-  h1 {
-    font-size: 25px;
-  }
-
-  th,
-  td {
-    padding: 11px 8px;
-    font-size: 12px;
-  }
-
-  .profile-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  input {
-    width: 100%;
-  }
+  header { padding: 0 15px; }
+  nav { gap: 10px; }
+  nav a { font-size: 12px; }
+  main { margin-top: 28px; }
+  h1 { font-size: 25px; }
+  th, td { padding: 11px 8px; font-size: 12px; }
+  .profile-grid { grid-template-columns: repeat(2, 1fr); }
+  input { width: 100%; }
 }
 </style>
 </head>
@@ -407,19 +279,19 @@ function getTier(player, mode) {
   return player.tiers[mode] || "—";
 }
 
-// Tier order from lowest to highest: LT5, HT5, LT4, HT4, LT3, HT3, LT2, HT2, LT1, HT1.
+// Tier order from best to worst: HT1, LT1, HT2, LT2, HT3, LT3, HT4, LT4, HT5, LT5.
 function tierSortValue(tier) {
   const order = {
-    LT5: 0,
-    HT5: 1,
-    LT4: 2,
-    HT4: 3,
-    LT3: 4,
-    HT3: 5,
-    LT2: 6,
-    HT2: 7,
-    LT1: 8,
-    HT1: 9
+    HT1: 0,
+    LT1: 1,
+    HT2: 2,
+    LT2: 3,
+    HT3: 4,
+    LT3: 5,
+    HT4: 6,
+    LT4: 7,
+    HT5: 8,
+    LT5: 9
   };
 
   return order[tier] ?? 999;
