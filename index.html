@@ -40,21 +40,34 @@ header, main, footer {
 }
 
 header {
-  height: 68px;
+  min-height: 68px;
   background: #101b2d;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 max(calc((100% - 1100px) / 2), 20px);
+  padding: 10px max(calc((100% - 1100px) / 2), 20px);
   gap: 20px;
 }
 
-.logo { font-size: 21px; font-weight: 900; letter-spacing: 1px; }
+.logo { font-size: 21px; font-weight: 900; letter-spacing: 1px; white-space: nowrap; }
 .logo span { color: var(--blue); }
-nav { display: flex; gap: 20px; }
-nav a { color: var(--muted); text-decoration: none; font-size: 14px; }
-nav a:hover { color: var(--blue); }
+nav { display: flex; gap: 10px; }
+.platform-tab {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: var(--muted);
+  padding: 9px 13px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.platform-tab:hover, .platform-tab.active {
+  color: var(--blue);
+  background: #15314a;
+  border-color: var(--blue);
+}
 
 main {
   max-width: 1100px;
@@ -127,6 +140,14 @@ tr.player-row:hover { background: var(--panel2); }
   font-weight: bold;
 }
 .points { color: var(--muted); }
+.empty-state {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  padding: 28px;
+  text-align: center;
+}
 footer {
   border-top: 1px solid var(--border);
   color: var(--muted);
@@ -174,9 +195,9 @@ footer {
 }
 
 @media (max-width: 600px) {
-  header { padding: 0 15px; }
-  nav { gap: 10px; }
-  nav a { font-size: 12px; }
+  header { padding: 10px 15px; flex-wrap: wrap; }
+  nav { gap: 5px; }
+  .platform-tab { padding: 8px 10px; font-size: 12px; }
   main { margin-top: 28px; }
   h1 { font-size: 25px; }
   th, td { padding: 11px 8px; font-size: 12px; }
@@ -191,35 +212,36 @@ footer {
 
 <header>
   <div class="logo">❄ ARCTIC <span>TIERS</span></div>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#rankings">Rankings</a>
-    <a href="#players">Players</a>
+  <nav aria-label="Choose tier list">
+    <button class="platform-tab active" id="javaTab" type="button" onclick="selectPlatform('Java')" aria-pressed="true">Java Tier List</button>
+    <button class="platform-tab" id="bedrockTab" type="button" onclick="selectPlatform('Bedrock')" aria-pressed="false">Bedrock Tier List</button>
   </nav>
 </header>
 
 <main id="rankings">
-  <h1>Player Rankings</h1>
-  <div class="subtitle">The Minecraft PvP Tierlist</div>
+  <h1 id="pageTitle">Java Player Rankings</h1>
+  <div class="subtitle" id="pageSubtitle">The Minecraft Java PvP Tierlist</div>
 
-  <div class="tabs" id="tabs"></div>
+  <div class="tabs" id="tabs" aria-label="Game modes"></div>
 
   <div class="toolbar">
     <input id="search" type="search" placeholder="Search player..." aria-label="Search players">
     <span style="color:#94a3b8;font-size:13px" id="count"></span>
   </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Player</th>
-        <th>Tier</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody id="ranking"></tbody>
-  </table>
+  <div id="rankingContent">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Tier</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody id="ranking"></tbody>
+    </table>
+  </div>
 </main>
 
 <div class="modal" id="modal">
@@ -229,9 +251,7 @@ footer {
   </div>
 </div>
 
-<footer>
-  ❄ ARCTIC TIERS · Minecraft PvP Rankings
-</footer>
+<footer>❄ ARCTIC TIERS · Minecraft PvP Rankings</footer>
 
 <script>
 const modes = [
@@ -239,40 +259,53 @@ const modes = [
   "Pot", "SMP", "Mace", "Netherite", "Spear"
 ];
 
-const players = [
-  {
-    name: "Fjalraven",
-    points: 25,
-    tiers: {
-      Sword: "HT4",
-      Axe: "HT5",
-      Crystal: "HT5",
-      UHC: "LT4",
-      Pot: "LT4",
-      SMP: "HT5",
-      Mace: "LT4",
-      Netherite: "HT5",
-      Spear: "HT4"
-    }
+const tierLists = {
+  Java: {
+    players: [
+      {
+        name: "Fjalraven",
+        points: 25,
+        tiers: {
+          Sword: "HT4",
+          Axe: "HT5",
+          Crystal: "HT5",
+          UHC: "LT4",
+          Pot: "LT4",
+          SMP: "HT5",
+          Mace: "LT4",
+          Netherite: "HT5",
+          Spear: "HT4"
+        }
+      },
+      {
+        name: "Jamir331",
+        points: 9,
+        tiers: {
+          Sword: "LT5",
+          Axe: "LT5",
+          Crystal: "LT5",
+          UHC: "LT5",
+          Pot: "LT5",
+          SMP: "LT5",
+          Mace: "LT5",
+          Netherite: "LT5",
+          Spear: "LT5"
+        }
+      }
+    ]
   },
-  {
-    name: "Jamir331",
-    points: 9,
-    tiers: {
-      Sword: "LT5",
-      Axe: "LT5",
-      Crystal: "LT5",
-      UHC: "LT5",
-      Pot: "LT5",
-      SMP: "LT5",
-      Mace: "LT5",
-      Netherite: "LT5",
-      Spear: "LT5"
-    }
+  // Add Bedrock players here using their Bedrock/Xbox gamertags and tier values.
+  Bedrock: {
+    players: []
   }
-];
-  
+};
+
+let currentPlatform = "Java";
 let currentMode = "Overall";
+
+function getCurrentPlayers() {
+  return tierLists[currentPlatform].players;
+}
 
 function getTier(player, mode) {
   if (mode === "Overall") return "—";
@@ -297,6 +330,15 @@ function tierSortValue(tier) {
   return order[tier] ?? 999;
 }
 
+function renderPlatformTabs() {
+  document.getElementById("javaTab").classList.toggle("active", currentPlatform === "Java");
+  document.getElementById("bedrockTab").classList.toggle("active", currentPlatform === "Bedrock");
+  document.getElementById("javaTab").setAttribute("aria-pressed", String(currentPlatform === "Java"));
+  document.getElementById("bedrockTab").setAttribute("aria-pressed", String(currentPlatform === "Bedrock"));
+  document.getElementById("pageTitle").textContent = `${currentPlatform} Player Rankings`;
+  document.getElementById("pageSubtitle").textContent = `The Minecraft ${currentPlatform} PvP Tierlist`;
+}
+
 function renderTabs() {
   document.getElementById("tabs").innerHTML = modes.map(mode => `
     <button
@@ -307,6 +349,16 @@ function renderTabs() {
   `).join("");
 }
 
+function selectPlatform(platform) {
+  if (!tierLists[platform]) return;
+  currentPlatform = platform;
+  currentMode = "Overall";
+  document.getElementById("search").value = "";
+  renderPlatformTabs();
+  renderTabs();
+  renderPlayers();
+}
+
 function selectMode(mode) {
   currentMode = mode;
   renderTabs();
@@ -315,15 +367,13 @@ function selectMode(mode) {
 
 function renderPlayers() {
   const query = document.getElementById("search").value.trim().toLowerCase();
-
-  const list = players.filter(player =>
+  const list = getCurrentPlayers().filter(player =>
     player.name.toLowerCase().includes(query)
   );
 
   if (currentMode !== "Overall") {
     list.sort((a, b) =>
-      tierSortValue(a.tiers[currentMode]) -
-        tierSortValue(b.tiers[currentMode]) ||
+      tierSortValue(a.tiers[currentMode]) - tierSortValue(b.tiers[currentMode]) ||
       b.points - a.points
     );
   } else {
@@ -331,9 +381,29 @@ function renderPlayers() {
   }
 
   document.getElementById("count").textContent = `${list.length} players`;
+  const rankingContent = document.getElementById("rankingContent");
+
+  if (list.length === 0) {
+    rankingContent.innerHTML = `<div class="empty-state">No ${currentPlatform} players have been added to the tier list yet.</div>`;
+    return;
+  }
+
+  rankingContent.innerHTML = `
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Tier</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody id="ranking"></tbody>
+    </table>
+  `;
 
   document.getElementById("ranking").innerHTML = list.map((player, index) => `
-    <tr class="player-row" onclick="openProfile('${player.name}')">
+    <tr class="player-row" onclick="openProfile('${encodeURIComponent(player.name)}')">
       <td class="rank">${index + 1}</td>
       <td>
         <div class="player">
@@ -350,8 +420,9 @@ function renderPlayers() {
   `).join("");
 }
 
-function openProfile(name) {
-  const player = players.find(item => item.name === name);
+function openProfile(encodedName) {
+  const name = decodeURIComponent(encodedName);
+  const player = getCurrentPlayers().find(item => item.name === name);
   if (!player) return;
 
   document.getElementById("profileContent").innerHTML = `
@@ -361,11 +432,11 @@ function openProfile(name) {
         alt="${player.name} skin head">
       <div>
         <h2>${player.name}</h2>
-        <p style="color:#94a3b8">${player.points} Points</p>
+        <p style="color:#94a3b8">${player.points} Points · ${currentPlatform}</p>
       </div>
     </div>
 
-    <h3 style="margin-top:25px">Player Tiers</h3>
+    <h3 style="margin-top:25px">${currentPlatform} Player Tiers</h3>
 
     <div class="profile-grid">
       ${modes.slice(1).map(mode => `
@@ -398,6 +469,7 @@ document.addEventListener("keydown", event => {
   }
 });
 
+renderPlatformTabs();
 renderTabs();
 renderPlayers();
 </script>
